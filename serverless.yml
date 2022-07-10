@@ -24,7 +24,7 @@ provider:
   runtime: nodejs14.x
   stage: ${opt:stage, 'dev'}
   region: ap-south-1
-  profile: sankara
+  #profile: sankara
   role: serviceLambdaRole
   memorySize: 512 # optional, in MB, default is 1024
   timeout: 6 # optional, in seconds, default is 6
