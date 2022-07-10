@@ -81,5 +81,10 @@ resources:
                     - "*"
                 - Effect: Allow
                   Action:
+                    - "cloudformation:DescribeStacks"
+                  Resource:
+                    - "*"
+                - Effect: Allow
+                  Action:
                     - "secretsmanager:GetSecretValue"
                   Resource: arn:aws:secretsmanager:${self:provider.region}:*:*
