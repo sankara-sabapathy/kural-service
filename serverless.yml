@@ -52,7 +52,6 @@ resources:
             - Effect: Allow
               Principal:
                 Service:
-                  - arn:aws:iam::AWS::AccountId:user/sankara
                   - lambda.amazonaws.com
               Action: 
                   - sts:AssumeRole
