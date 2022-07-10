@@ -33,6 +33,9 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install Dependencies and deploy
         run: npm i
+        
+      - name: Configure aws profile
+        run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile sankara
 
       - name: serverless deploy
         uses: serverless/github-action@v3.1
