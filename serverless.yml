@@ -52,8 +52,11 @@ resources:
             - Effect: Allow
               Principal:
                 Service:
+                  - arn:aws:iam::AWS::AccountId:user/sankara
                   - lambda.amazonaws.com
-              Action: sts:AssumeRole
+              Action: 
+                  - sts:AssumeRole
+                  - sts:TagSession
         Policies:
           - PolicyName: ${self:service}-${self:provider.stage}-${self:provider.region}-lambdaRole
             PolicyDocument:
@@ -71,6 +74,11 @@ resources:
                           - Ref: "AWS::Region"
                           - Ref: "AWS::AccountId"
                           - "log-group:/aws/lambda/*:*:*"
+                - Effect: Allow
+                  Action:
+                    - "s3:PutObject"
+                  Resource:
+                    - "*"
                 - Effect: Allow
                   Action:
                     - "secretsmanager:GetSecretValue"
