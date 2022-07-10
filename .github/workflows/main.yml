@@ -50,4 +50,4 @@ jobs:
           role-session-name: MySessionName
 
       - name: serverless deploy
-        run: sls deploy
+        run: serverless deploy --stage dev
