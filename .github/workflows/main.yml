@@ -46,6 +46,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
           role-to-assume: arn:aws:iam::612850243659:role/app/serverless-service-dev-ap-south-1-lambdaRole
+          role-duration-seconds: 1200
+          role-session-name: MySessionName
 
       - name: serverless deploy
         run: sls deploy
