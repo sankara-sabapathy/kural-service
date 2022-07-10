@@ -1,0 +1,77 @@
+service: serverless-service
+package:
+  individually: true
+plugins:
+  - serverless-offline
+  - serverless-esbuild
+functions:
+  TestFunction:
+    handler: src/api-functions/thirukkuralMain.handler
+    events:
+      - http:
+          path: /kural
+          method: get
+          cors: true
+  PostEmail:
+    handler: src/api-functions/thirukkuralMain.handler
+    events:
+      - http:
+          path: /kural
+          method: post
+          cors: true
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: ap-south-1
+  profile: sankara
+  role: serviceLambdaRole
+  memorySize: 512 # optional, in MB, default is 1024
+  timeout: 6 # optional, in seconds, default is 6
+  versionFunctions: false # optional, default is true
+  logRetentionInDays: 7 # Set the default RetentionInDays for a CloudWatch LogGroup.
+  environment:
+    stage: ${self:provider.stage}
+custom:
+  serverless-offline:
+    port: 8000
+  esbuild: 
+    bundle: true
+  profiles:
+    dev: sankara
+resources:
+  Resources:
+    serviceLambdaRole:
+      Type: AWS::IAM::Role
+      Properties:
+        Path: "/app/"
+        RoleName: ${self:service}-${self:provider.stage}-${self:provider.region}-lambdaRole
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: ${self:service}-${self:provider.stage}-${self:provider.region}-lambdaRole
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource:
+                    - "Fn::Join":
+                        - ":"
+                        - - "arn:aws:logs"
+                          - Ref: "AWS::Region"
+                          - Ref: "AWS::AccountId"
+                          - "log-group:/aws/lambda/*:*:*"
+                - Effect: Allow
+                  Action:
+                    - "secretsmanager:GetSecretValue"
+                  Resource: arn:aws:secretsmanager:${self:provider.region}:*:*
