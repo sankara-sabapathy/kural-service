@@ -31,11 +31,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       # Runs a single command using the runners shell
-      - name: Install Dependencies and deploy
+      - name: Install Dependencies
         run: |
           npm i
           npm i -g serverless
-          npm i aws-sdk
+          npm i -g aws-sdk
         
       - name: Configure aws profile
         run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile sankara
