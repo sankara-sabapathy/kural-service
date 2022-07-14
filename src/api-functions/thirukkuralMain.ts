@@ -37,8 +37,12 @@ app.get("/kural", async (req, res) => {
 });
 
 app.post("/kural", async (req, res) => {
-    const secretManagement = new SecretManagement();
+  
+    const secretManagement : SecretManagement = new SecretManagement();
+    const graphqlService: GraphQLService = new GraphQLService();
+
     const secretValue = await secretManagement.getSecret();
+
     if(!secretValue) {
       console.log("Failed to get Secrets from Secret manager", secretValue);
       res.status(500).json({message:'Internal Server Error.'})
@@ -59,7 +63,6 @@ app.post("/kural", async (req, res) => {
         console.log("No number sent in Request Body: ", number);
         number = randomNumber();
       }
-      const graphqlService: GraphQLService = new GraphQLService();
       getKuralForEmailResult = await graphqlService.getKuralForEmail(number);
     } while (
       getKuralForEmailResult &&
@@ -68,6 +71,12 @@ app.post("/kural", async (req, res) => {
     console.log(getKuralForEmailResult);
 
     SibApiV3Sdk.ApiClient.instance.authentications["api-key"].apiKey = secretValue.sibApiKey;
+
+    const getEmailContactsResult = await graphqlService.getEmailContacts();
+    if(!getEmailContactsResult || !getEmailContactsResult.contacts || !getEmailContactsResult.contacts) {
+      console.log("Failed to get email contacts: ", getEmailContactsResult)
+      res.status(500).json({message:"Internal Server Error."})
+    }
 
     await new SibApiV3Sdk.TransactionalEmailsApi()
       .sendTransacEmail({
@@ -89,19 +98,13 @@ app.post("/kural", async (req, res) => {
           explanation: getKuralForEmailResult.thirukkural[0].explanation,
         },
         htmlContent: emailTemplate,
-        // "<!DOCTYPE html><html><body><h1>{{params.line1}}</h1></br><h1>{{params.line2}}</body></html>",
         to: [
           {
             email: "krssabapathy1999@gmail.com",
             name: "Sankara Sabapathy",
           },
         ],
-        bcc: [
-          {
-            email: "sabapathy.work@gmail.com",
-            name: "Sankara Sabapathy",
-          },
-        ],
+        bcc: getEmailContactsResult.contacts,
       })
       .then(
         (data) => {

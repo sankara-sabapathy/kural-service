@@ -37,8 +37,8 @@ custom:
     port: 8000
   esbuild: 
     bundle: true
-  profiles:
-    dev: sankara
+  # profiles:
+  #   dev: sankara
 resources:
   Resources:
     serviceLambdaRole:
