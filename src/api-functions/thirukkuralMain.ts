@@ -30,10 +30,12 @@ app.get("/kural", async (req, res) => {
     number < 1
   ) {
     res.status(400).send({ message: "Pass values between 1 and 1300" });
+    return;
   }
   const graphqlService: GraphQLService = new GraphQLService();
   const result = await graphqlService.getKural(number);
   res.status(200).send({ message: result });
+  return;
 });
 
 app.post("/kural", async (req, res) => {
