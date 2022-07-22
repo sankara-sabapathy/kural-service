@@ -47,7 +47,7 @@ export const emailTemplate =  `<!DOCTYPE html>
           <table role="presentation" style="width:94%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
             <tr>
               <td style="padding:40px 30px 30px 30px;text-align:center;font-size:24px;font-weight:bold;">
-                <a href="http://www.example.com/" style="text-decoration:none;"><img src="https://ik.imagekit.io/rw020j6tr/logo_5lMKBvzgZ.png?ik-sdk-version=javascript-1.4.3&updatedAt=1657084538579" width="165" alt="Logo" style="width:165px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
+                <a href="https://d19mqmzhe1goc9.cloudfront.net" style="text-decoration:none;"><img src="https://ik.imagekit.io/rw020j6tr/logo_5lMKBvzgZ.png?ik-sdk-version=javascript-1.4.3&updatedAt=1657084538579" width="165" alt="Logo" style="width:165px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
               </td>
             </tr>
             <tr>

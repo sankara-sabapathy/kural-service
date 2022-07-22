@@ -116,7 +116,7 @@ app.post("/kural", async (req, res) => {
           console.log(err);
         }
       );
-    res.status(200).send({ message: "test" });
+    res.status(200).send({ message: "Successfully sent email." });
 });
 
 function randomNumber() {
