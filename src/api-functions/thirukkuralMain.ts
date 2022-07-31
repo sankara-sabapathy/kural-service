@@ -81,7 +81,7 @@ app.post("/kural", async (req, res) => {
     SibApiV3Sdk.ApiClient.instance.authentications["api-key"].apiKey = secretValue.sibApiKey;
 
     const getEmailContactsResult = await graphqlService.getEmailContacts();
-    if(!getEmailContactsResult || !getEmailContactsResult.contacts || !getEmailContactsResult.contacts) {
+    if(!getEmailContactsResult || !getEmailContactsResult.user) {
       console.log("Failed to get email contacts: ", getEmailContactsResult)
       res.status(500).json({message:"Internal Server Error."})
     }
@@ -112,7 +112,7 @@ app.post("/kural", async (req, res) => {
             name: "Sankara Sabapathy",
           },
         ],
-        bcc: getEmailContactsResult.contacts,
+        bcc: getEmailContactsResult.user,
       })
       .then(
         (data) => {
