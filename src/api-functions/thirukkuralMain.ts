@@ -52,7 +52,7 @@ app.post("/kural", async (req, res) => {
     }
     CredentialsService.setSecretValue(secretValue.xHasuraAdminSecret,secretValue.sibApiKey);
     let getKuralForEmailResult;
-    do {
+    // do {
 
       let number = Number(req.body.number);
       if (
@@ -66,10 +66,16 @@ app.post("/kural", async (req, res) => {
         number = randomNumber();
       }
       getKuralForEmailResult = await graphqlService.getKuralForEmail(number);
-    } while (
-      getKuralForEmailResult &&
-      getKuralForEmailResult.thirukkural.length < 1
-    );
+    // } while (
+    //   getKuralForEmailResult &&
+    //   getKuralForEmailResult.thirukkural.length < 1
+    // );
+
+    if(!getKuralForEmailResult || getKuralForEmailResult.thirukkural.length < 1) {
+      console.log("Failed to get Thirukkural from DB", getKuralForEmailResult);
+      res.status(500).json({message:'Internal Server Error.'})
+      return
+    }
     console.log(getKuralForEmailResult);
 
     SibApiV3Sdk.ApiClient.instance.authentications["api-key"].apiKey = secretValue.sibApiKey;

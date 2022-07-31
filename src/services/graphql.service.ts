@@ -46,7 +46,7 @@ export class GraphQLService {
     public async getEmailContacts() {
         return axios.post(
             'https://thirukkural.hasura.app/v1/graphql',
-            { query: "query getContacts {\r\n  contacts(where:{subscribe_status:{_eq: true}}) {\r\n    name\r\n    email\r\n\t}\r\n}",
+            { query: "query getContacts {\r\n  user(where:{subscribe_status:{_eq: true}}) {\r\n    name\r\n    email\r\n\t}\r\n}",
                 variables: { }
             },
             { 
