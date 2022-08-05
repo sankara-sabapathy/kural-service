@@ -19,6 +19,13 @@ functions:
           path: /kural
           method: post
           cors: true
+  PostTestEmail:
+    handler: src/api-functions/thirukkuralMain.handler
+    events:
+      - http:
+          path: /kural/test
+          method: post
+          cors: true
 provider:
   name: aws
   runtime: nodejs14.x
