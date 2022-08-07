@@ -47,7 +47,7 @@ export const emailTemplate =  `<!DOCTYPE html>
           <table role="presentation" style="width:94%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
             <tr>
               <td style="padding:40px 30px 30px 30px;text-align:center;font-size:24px;font-weight:bold;">
-                <a href="https://d19mqmzhe1goc9.cloudfront.net" style="text-decoration:none;"><img src="https://ik.imagekit.io/rw020j6tr/logo_5lMKBvzgZ.png?ik-sdk-version=javascript-1.4.3&updatedAt=1657084538579" width="165" alt="Logo" style="width:165px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
+                <a href="https://kuralservice.netlify.app" style="text-decoration:none;"><img src="https://ik.imagekit.io/rw020j6tr/logo_5lMKBvzgZ.png?ik-sdk-version=javascript-1.4.3&updatedAt=1657084538579" width="165" alt="Logo" style="width:165px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
               </td>
             </tr>
             <tr>
@@ -68,7 +68,7 @@ export const emailTemplate =  `<!DOCTYPE html>
             <tr>
             <td style="padding:30px;text-align:center;font-size:12px;background-color:#404040;color:#cccccc;">
               <p style="margin:0 0 8px 0;"><a href="https://rzp.io/l/hnc9bwqe" style="text-decoration:none;"><img src="https://ik.imagekit.io/rw020j6tr/donate_PNG12_iFWDL8ybD.png?ik-sdk-version=javascript-1.4.3&updatedAt=1657389754191&tr=w-1080%2Ch-1080%2Cfo-auto" width="40" height="40" alt="f" style="display:inline-block;color:#cccccc;"></a></p>
-              <p style="margin:0;font-size:14px;line-height:20px;">&reg; Kural Service 2022<br><a class="unsub" href="https://docs.google.com/forms/d/e/1FAIpQLSfvsJjdAmXbSE7DsS8gl-r2AH8ajQZNmQk6mXIYGFntyU2k8Q/viewform" style="color:#cccccc;text-decoration:underline;">Unsubscribe</a></p>
+              <p style="margin:0;font-size:14px;line-height:20px;">&reg; Kural Service 2022<br><a class="unsub" href="https://kuralservice.netlify.app" style="color:#cccccc;text-decoration:underline;">Unsubscribe</a></p>
             </td>
           </tr>
           </table>
