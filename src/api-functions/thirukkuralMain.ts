@@ -7,6 +7,7 @@ var SibApiV3Sdk = require("sib-api-v3-sdk");
 import { emailTemplate } from "src/email-contents/default";
 import { SecretManagement } from "src/services/secretmanagement.service";
 import { CredentialsService } from "src/services/credentialService";
+import axios from "axios";
 
 const app: express.Express = express();
 app.use(bodyParser.json({ strict: false }));
@@ -229,6 +230,24 @@ app.post("/kural/test", async (req, res) => {
       }
     );
   res.status(200).send({ message: "Successfully sent email." });
+});
+
+app.get("/token", async (req, res) => {
+  var token;
+  await axios.post('https://dev-o6gheppq.us.auth0.com/oauth/token', {
+    "client_id": "qr4ximpxjuFPHmPxW7Xwe5wDACnv4UHJ",
+    "client_secret": "j9ahI5aRvEcV8RWiSMjcXrkPee-QkYdBuRiH2dJA67bp6WSoMar_QFv80bArvYWB",
+    "audience": "https://hasura.io/learn",
+    "grant_type": "client_credentials"
+  }, {
+    headers: {
+      'content-type': 'application/json'
+    }
+  }).then(result => {
+    token = result.data.access_token;
+  })
+  res.status(200).send({ access_token: token });
+  return;
 });
 
 function randomNumber() {

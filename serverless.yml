@@ -26,6 +26,13 @@ functions:
           path: /kural/test
           method: post
           cors: true
+  TokenServer:
+    handler: src/api-functions/thirukkuralMain.handler
+    events:
+      - http:
+          path: /token
+          method: get
+          cors: true
 provider:
   name: aws
   runtime: nodejs14.x
