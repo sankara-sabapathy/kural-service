@@ -11,9 +11,11 @@ export class SecretManagement {
         }
         const xHasuraAdminSecret = JSON.parse(secretValue.SecretString)['x-hasura-admin-secret'];
         const sibApiKey = JSON.parse(secretValue.SecretString)['sib-x-api-key'];
+        const botToken = JSON.parse(secretValue.SecretString)['telegram-bot-key'];
         return {
             xHasuraAdminSecret,
-            sibApiKey
+            sibApiKey,
+            botToken
         }
     }
 }

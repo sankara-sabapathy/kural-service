@@ -79,6 +79,13 @@ app.post("/kural", async (req, res) => {
   }
   console.log(getKuralForEmailResult);
 
+  try {
+    const uri: any = getFormattedURL(getKuralForEmailResult, secretValue.botToken);
+    axios.get(encodeURI(uri));
+  } catch (err) {
+    console.log('Error while sending kural using telegram bot: ' + err);
+  }
+
   SibApiV3Sdk.ApiClient.instance.authentications["api-key"].apiKey = secretValue.sibApiKey;
 
   const getEmailContactsResult = await graphqlService.getEmailContacts();
@@ -252,6 +259,27 @@ app.get("/token", async (req, res) => {
 
 function randomNumber() {
   return Math.floor(Math.random() * (1080 - 1 + 1)) + 1;
+}
+
+function getFormattedURL(data: any, botToken: string) {
+  return 'https://api.telegram.org/bot' + botToken + '/sendMessage?chat_id=@kuralservice&text=' +
+    '<b>' +
+    data.thirukkural[0].kural[0] +
+    '</b>' + '\n' + '<b>' +
+    data.thirukkural[0].kural[1] +
+    '</b>\n\n' +
+    '<b>' + 'குறள் எண்: </b>' + data.thirukkural[0].number + '\n' +
+    '<b>' + 'இயல்: </b>' + data.thirukkural[0].iyal + '\n' +
+    '<b>' + 'அதிகாரம்: </b>' + data.thirukkural[0].adikaram + '\n\n' +
+    '<b>' + data.thirukkural[0].mu_varatha[0] + '</b>\n' +
+    data.thirukkural[0].mu_varatha[1] + '\n\n' +
+    '<b>' + data.thirukkural[0].mu_karu[0] + '</b>\n' +
+    data.thirukkural[0].mu_karu[1] + '\n\n' +
+    '<b>' + data.thirukkural[0].salaman[0] + '</b>\n' +
+    data.thirukkural[0].salaman[1] + '\n\n' +
+    '<b>' + 'Explanation: ' + '</b>' + data.thirukkural[0].explanation + '\n\n' +
+    '<b>' + '<a href="https://kuralservice.netlify.com/">மேலும் திருக்குறள் வாசிக்க...</a>' + '</b>' +
+    '&parse_mode=HTML';
 }
 
 module.exports.handler = serverless(app, {
