@@ -33,6 +33,13 @@ functions:
           path: /token
           method: get
           cors: true
+  TelegramBotHandler:
+    handler: src/api-functions/telegramBotHandler.handler
+    events:
+      - http:
+          path: /botHandler
+          method: post
+          cors: true
 provider:
   name: aws
   runtime: nodejs14.x
