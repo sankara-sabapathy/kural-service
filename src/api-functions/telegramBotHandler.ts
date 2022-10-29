@@ -15,12 +15,7 @@ app.post("/botHandler", async (req, res) => {
         const chatId = req.body.message.chat.id;
         const graphqlService: GraphQLService = new GraphQLService();
         const secretManagement: SecretManagement = new SecretManagement();
-        let secretValue;
-        if (!CredentialsService.getHasuraAdminSecret()) { // Only query secret manager if secrets not available in memory cache. 
-            secretValue = await secretManagement.getSecret();
-        } else {
-            secretValue = true;
-        }
+        const secretValue = await secretManagement.getSecret();
         if (!secretValue) {
             console.log("Failed to get Secrets from Secret manager", secretValue);
             res.status(200).json({ "Message": "Failed to get Secrets from Secret manager" }); // Always set statuscode to 200, to avoid retries from telegram.
