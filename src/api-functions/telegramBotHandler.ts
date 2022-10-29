@@ -16,8 +16,10 @@ app.post("/botHandler", async (req, res) => {
         const graphqlService: GraphQLService = new GraphQLService();
         const secretManagement: SecretManagement = new SecretManagement();
         let secretValue;
-        if (!CredentialsService.getHasuraAdminSecret()) {
+        if (!CredentialsService.getHasuraAdminSecret()) { // Only query secret manager if secrets not available in memory cache. 
             secretValue = await secretManagement.getSecret();
+        } else {
+            secretValue = true;
         }
         if (!secretValue) {
             console.log("Failed to get Secrets from Secret manager", secretValue);
