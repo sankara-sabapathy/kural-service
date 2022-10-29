@@ -11,6 +11,7 @@ app.use(bodyParser.json({ strict: false }));
 app.use(cors());
 module.exports.handler = serverless(app);
 app.post("/botHandler", async (req, res) => {
+    console.log("Received update. Thanks Telegram");
     res.status(200).json({ "Message": "Received update. Thanks Telegram" }); // To avoid retries from telegram
     const chatId = req.body.message.chat.id;
     const graphqlService: GraphQLService = new GraphQLService();
